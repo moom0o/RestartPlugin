@@ -17,6 +17,8 @@ import static java.lang.Thread.sleep;
 
 public class RestartPlugin extends JavaPlugin implements Listener {
     FileConfiguration config = getConfig();
+    boolean playerslow = false;
+
     public void onEnable() {
         saveDefaultConfig();
         System.out.println("[ENABLED] moomoo's 2b2t restart notifications plugin");
@@ -48,13 +50,13 @@ public class RestartPlugin extends JavaPlugin implements Listener {
     public void restart() throws InterruptedException {
         String s = translate(get("string"));
         b(translate(s + " 15" + get("minutestring")));
-        sleep(1000);
+        sleep(300000);
         b(translate(s + " 10" + get("minutestring")));
-        sleep(1000);
+        sleep(300000);
         b(translate(s + " 5" + get("minutestring")));
-        sleep(1000);
+        sleep(180000);
         b(translate(s + " 2" + get("minutestring")));
-        sleep(1000);
+        sleep(105000);
         b(translate(s + " 15" + get("secondsstring")));
         sleep(1000);
         b(translate(s + " 14" + get("secondsstring")));
