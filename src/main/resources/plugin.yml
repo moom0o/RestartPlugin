@@ -1,0 +1,3 @@
+name: RestartPlugin
+version: ${project.version}
+main: me.moomoo.restartplugin.RestartPlugin

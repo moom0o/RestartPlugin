@@ -1,0 +1,15 @@
+# 2b2t restart plugin
+
+# Time to where the server will call a restart
+Timezone: "America/New_York"
+#Time
+# 2:00 AM EST
+Hour: 2
+Minute: 0
+Seconds: 0
+
+string: "&e[SERVER] Server restarting in"
+finalstring: "&e[SERVER] Server restarting..."
+minutestring: " minutes..."
+secondsstring: " seconds..."
+secondstring: " second..."
