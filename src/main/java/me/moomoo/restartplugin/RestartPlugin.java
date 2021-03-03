@@ -95,10 +95,11 @@ public class RestartPlugin extends JavaPlugin implements Listener {
         return ChatColor.translateAlternateColorCodes('&', s);
     }
 
-    public String get(String s){
+    public String get(String s) {
         return config.getString(s);
     }
-    public void b(String s){
+
+    public void b(String s) {
         Bukkit.broadcastMessage(s);
     }
 }
