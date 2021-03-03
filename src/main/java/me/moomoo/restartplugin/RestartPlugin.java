@@ -87,7 +87,7 @@ public class RestartPlugin extends JavaPlugin implements Listener {
         sleep(1000);
         b(translate(s + " 1" + get("secondstring")));
         sleep(1000);
-        b("§e" + "[SERVER] Server restarting...");
+        b(translate(get("finalstring")));
         Bukkit.shutdown();
     }
 
