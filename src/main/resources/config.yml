@@ -4,6 +4,7 @@
 Timezone: "America/New_York"
 #Time
 # 2:00 AM EST
+# THIS IS IN 24 HOUR TIME
 Hour: 2
 Minute: 0
 Seconds: 0
