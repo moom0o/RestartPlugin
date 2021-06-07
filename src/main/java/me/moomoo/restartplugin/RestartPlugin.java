@@ -17,7 +17,6 @@ import static java.lang.Thread.sleep;
 
 public class RestartPlugin extends JavaPlugin implements Listener {
     FileConfiguration config = getConfig();
-    boolean playerslow = false;
 
     public void onEnable() {
         saveDefaultConfig();
@@ -25,67 +24,73 @@ public class RestartPlugin extends JavaPlugin implements Listener {
         Bukkit.getServer().getPluginManager().registerEvents(this, this);
 
         ZonedDateTime now = ZonedDateTime.now(ZoneId.of(get("Timezone")));
-        ZonedDateTime nextRun = now.withHour(config.getInt("Hour")).withMinute(config.getInt("Minute")).withSecond(config.getInt("Seconds"));
-        if (now.compareTo(nextRun) > 0)
-            nextRun = nextRun.plusDays(1);
+        config.getStringList("RestartTimes").forEach(b -> {
+            String[] numbers = b.split(":");
+            int hour = Integer.parseInt(numbers[0]);
+            int minute = Integer.parseInt(numbers[1]);
+            int second = Integer.parseInt(numbers[2]);
 
-        Duration duration = Duration.between(now, nextRun);
-        long initalDelay = duration.getSeconds();
+            ZonedDateTime nextRun = now.withHour(hour).withMinute(minute).withSecond(second);
+            if (now.compareTo(nextRun) > 0)
+                nextRun = nextRun.plusDays(1);
 
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-        scheduler.scheduleAtFixedRate(() -> {
-            Thread t = new Thread(() -> {
-                try {
-                    restart();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            Duration duration = Duration.between(now, nextRun);
+            long initalDelay = duration.getSeconds();
 
-            });
-
-            t.start();
-        }, initalDelay, TimeUnit.DAYS.toSeconds(1), TimeUnit.SECONDS);
+            ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+            scheduler.scheduleAtFixedRate(() -> {
+                Thread t = new Thread(() -> {
+                    try {
+                        restart();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                });
+                t.start();
+            }, initalDelay, TimeUnit.DAYS.toSeconds(1), TimeUnit.SECONDS);
+        });
     }
 
     public void restart() throws InterruptedException {
-        String s = translate(get("string"));
-        b(translate(s + " 15" + get("minutestring")));
+        String s = get("string");
+        // Pull req. If you find a better way to do this!
+        b(translate(s.replace("%time%", "15").replace("%timeword%", get("minutestring"))));
         sleep(300000);
-        b(translate(s + " 10" + get("minutestring")));
+        b(translate(s.replace("%time%", "10").replace("%timeword%", get("minutestring"))));
         sleep(300000);
-        b(translate(s + " 5" + get("minutestring")));
+        b(translate(s.replace("%time%", "5").replace("%timeword%", get("minutestring"))));
         sleep(180000);
-        b(translate(s + " 2" + get("minutestring")));
+        b(translate(s.replace("%time%", "2").replace("%timeword%", get("minutestring"))));
         sleep(105000);
-        b(translate(s + " 15" + get("secondsstring")));
+        b(translate(s.replace("%time%", "15").replace("%timeword%", get("secondsstring"))));
         sleep(1000);
-        b(translate(s + " 14" + get("secondsstring")));
+        b(translate(s.replace("%time%", "14").replace("%timeword%", get("secondsstring"))));
         sleep(1000);
-        b(translate(s + " 13" + get("secondsstring")));
+        b(translate(s.replace("%time%", "13").replace("%timeword%", get("secondsstring"))));
         sleep(1000);
-        b(translate(s + " 12" + get("secondsstring")));
+        b(translate(s.replace("%time%", "12").replace("%timeword%", get("secondsstring"))));
         sleep(1000);
-        b(translate(s + " 11" + get("secondsstring")));
+        b(translate(s.replace("%time%", "11").replace("%timeword%", get("secondsstring"))));
         sleep(1000);
-        b(translate(s + " 10" + get("secondsstring")));
+        b(translate(s.replace("%time%", "10").replace("%timeword%", get("secondsstring"))));
         sleep(1000);
-        b(translate(s + " 9" + get("secondsstring")));
+        b(translate(s.replace("%time%", "9").replace("%timeword%", get("secondsstring"))));
         sleep(1000);
-        b(translate(s + " 8" + get("secondsstring")));
+        b(translate(s.replace("%time%", "8").replace("%timeword%", get("secondsstring"))));
         sleep(1000);
-        b(translate(s + " 7" + get("secondsstring")));
+        b(translate(s.replace("%time%", "7").replace("%timeword%", get("secondsstring"))));
         sleep(1000);
-        b(translate(s + " 6" + get("secondsstring")));
+        b(translate(s.replace("%time%", "6").replace("%timeword%", get("secondsstring"))));
         sleep(1000);
-        b(translate(s + " 5" + get("secondsstring")));
+        b(translate(s.replace("%time%", "5").replace("%timeword%", get("secondsstring"))));
         sleep(1000);
-        b(translate(s + " 4" + get("secondsstring")));
+        b(translate(s.replace("%time%", "4").replace("%timeword%", get("secondsstring"))));
         sleep(1000);
-        b(translate(s + " 3" + get("secondsstring")));
+        b(translate(s.replace("%time%", "3").replace("%timeword%", get("secondsstring"))));
         sleep(1000);
-        b(translate(s + " 2" + get("secondsstring")));
+        b(translate(s.replace("%time%", "2").replace("%timeword%", get("secondsstring"))));
         sleep(1000);
-        b(translate(s + " 1" + get("secondstring")));
+        b(translate(s.replace("%time%", "1").replace("%timeword%", get("secondstring"))));
         sleep(1000);
         b(translate(get("finalstring")));
         Bukkit.shutdown();
