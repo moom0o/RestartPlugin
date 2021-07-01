@@ -20,4 +20,10 @@ finalstring: "&e[SERVER] Server restarting..."
 minutestring: "minutes..."
 secondsstring: "seconds..."
 secondstring: "second..."
+
+# REBOOT AT LOW TPS SETTINGS
+RebootFromLowTPS: false
+TPSToStartCounting: 10
+HowLongShouldTheServerGoWithLowTPS: 300 # seconds, the counter is reset if the server is above the specified tps for one second.
+InstantRestart: false # Should the server send the 15 minute countdown messages?
 ```

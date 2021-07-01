@@ -17,6 +17,8 @@ import static java.lang.Thread.sleep;
 
 public class RestartPlugin extends JavaPlugin implements Listener {
     FileConfiguration config = getConfig();
+    int secondsServerWasAtLowTPS = 0;
+    Boolean serverIsRestarting = false;
 
     public void onEnable() {
         saveDefaultConfig();
@@ -48,10 +50,43 @@ public class RestartPlugin extends JavaPlugin implements Listener {
                 });
                 t.start();
             }, initalDelay, TimeUnit.DAYS.toSeconds(1), TimeUnit.SECONDS);
+
+            if (getConfig().getBoolean("RebootFromLowTPS")) {
+                ScheduledExecutorService schedulerTPS = Executors.newScheduledThreadPool(1);
+                schedulerTPS.scheduleAtFixedRate(() -> {
+                    Thread t = new Thread(() -> {
+                        double tps = Bukkit.getServer().getTPS()[0];
+                        if (secondsServerWasAtLowTPS > getConfig().getInt("HowLongShouldTheServerGoWithLowTPS")) {
+                            if (!serverIsRestarting) {
+                                getLogger().warning("The server is rebooting because the tps was lower than " + getConfig().getDouble("TPSToStartCounting") + " for " + getConfig().getInt("HowLongShouldTheServerGoWithLowTPS") + " seconds.");
+                            }
+                            if (getConfig().getBoolean("InstantRestart")) {
+                                Bukkit.shutdown();
+                            } else {
+                                try {
+                                    restart();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                        if (tps < getConfig().getDouble("TPSToStartCounting")) {
+                            secondsServerWasAtLowTPS++;
+                        } else {
+                            secondsServerWasAtLowTPS = 0;
+                        }
+                    });
+                    t.start();
+                }, 1, 1, TimeUnit.SECONDS);
+            }
         });
     }
 
     public void restart() throws InterruptedException {
+        if (serverIsRestarting) {
+            return;
+        }
+        serverIsRestarting = true;
         String s = get("string");
         // Pull req. If you find a better way to do this!
         b(translate(s.replace("%time%", "15").replace("%timeword%", get("minutestring"))));
