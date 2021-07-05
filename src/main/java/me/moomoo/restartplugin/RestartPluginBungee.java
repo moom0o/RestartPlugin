@@ -31,6 +31,10 @@ public class RestartPluginBungee extends Plugin implements Listener {
         Logger log = getLogger();
 
         log.info(ChatColor.AQUA + "Loading config");
+        if (!getDataFolder().exists()) {
+            getDataFolder().mkdirs();
+        }
+
         File file = new File(getDataFolder(), "config.yml");
 
         if (!file.exists()) {
