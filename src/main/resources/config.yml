@@ -14,6 +14,7 @@ minutestring: "minutes..."
 secondsstring: "seconds..."
 secondstring: "second..."
 
+# Settings below do not work on proxies!
 # REBOOT AT LOW TPS SETTINGS
 RebootFromLowTPS: false
 TPSToStartCounting: 10
