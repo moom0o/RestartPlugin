@@ -1,3 +1,5 @@
 name: RestartPlugin
 version: ${project.version}
 main: me.moomoo.restartplugin.RestartPlugin
+author: moom0o
+authors: ["AlexProgrammerDE"]

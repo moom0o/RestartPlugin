@@ -1,0 +1,4 @@
+name: RestartPluginBungee
+version: ${project.version}
+main: me.moomoo.restartplugin.RestartPluginBungee
+author: moom0o
