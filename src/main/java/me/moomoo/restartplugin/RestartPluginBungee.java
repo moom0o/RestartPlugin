@@ -7,7 +7,6 @@ import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
-import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,7 +34,7 @@ public class RestartPluginBungee extends Plugin implements Listener {
         File file = new File(getDataFolder(), "config.yml");
 
         if (!file.exists()) {
-            try (InputStream in = getResourceAsStream("bungeeconfig.yml")) {
+            try (InputStream in = getResourceAsStream("config.yml")) {
                 Files.copy(in, file.toPath());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -88,47 +87,7 @@ public class RestartPluginBungee extends Plugin implements Listener {
         }
 
         serverIsRestarting = true;
-        String s = get("string");
-        // Pull req. If you find a better way to do this!
-        b(translate(s.replace("%time%", "15").replace("%timeword%", get("minutestring"))));
-        sleep(300000);
-        b(translate(s.replace("%time%", "10").replace("%timeword%", get("minutestring"))));
-        sleep(300000);
-        b(translate(s.replace("%time%", "5").replace("%timeword%", get("minutestring"))));
-        sleep(180000);
-        b(translate(s.replace("%time%", "2").replace("%timeword%", get("minutestring"))));
-        sleep(105000);
-        b(translate(s.replace("%time%", "15").replace("%timeword%", get("secondsstring"))));
-        sleep(1000);
-        b(translate(s.replace("%time%", "14").replace("%timeword%", get("secondsstring"))));
-        sleep(1000);
-        b(translate(s.replace("%time%", "13").replace("%timeword%", get("secondsstring"))));
-        sleep(1000);
-        b(translate(s.replace("%time%", "12").replace("%timeword%", get("secondsstring"))));
-        sleep(1000);
-        b(translate(s.replace("%time%", "11").replace("%timeword%", get("secondsstring"))));
-        sleep(1000);
-        b(translate(s.replace("%time%", "10").replace("%timeword%", get("secondsstring"))));
-        sleep(1000);
-        b(translate(s.replace("%time%", "9").replace("%timeword%", get("secondsstring"))));
-        sleep(1000);
-        b(translate(s.replace("%time%", "8").replace("%timeword%", get("secondsstring"))));
-        sleep(1000);
-        b(translate(s.replace("%time%", "7").replace("%timeword%", get("secondsstring"))));
-        sleep(1000);
-        b(translate(s.replace("%time%", "6").replace("%timeword%", get("secondsstring"))));
-        sleep(1000);
-        b(translate(s.replace("%time%", "5").replace("%timeword%", get("secondsstring"))));
-        sleep(1000);
-        b(translate(s.replace("%time%", "4").replace("%timeword%", get("secondsstring"))));
-        sleep(1000);
-        b(translate(s.replace("%time%", "3").replace("%timeword%", get("secondsstring"))));
-        sleep(1000);
-        b(translate(s.replace("%time%", "2").replace("%timeword%", get("secondsstring"))));
-        sleep(1000);
-        b(translate(s.replace("%time%", "1").replace("%timeword%", get("secondstring"))));
-        sleep(1000);
-        b(translate(get("finalstring")));
+        sleep(900000);
         getProxy().stop(translate(get("finalstring")));
     }
 
